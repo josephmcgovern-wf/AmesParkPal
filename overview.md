@@ -32,6 +32,7 @@
 * Time limit
 * Time remaining
 * Hours of operation
+* Name/ID
 
 #### Required Methods:
 * isAvailable() *this is the same as isExpired()*
