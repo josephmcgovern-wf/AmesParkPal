@@ -12,6 +12,7 @@
 * List of ParkingSpaces
 * Number of places to park
 * Hours of operation
+
 #### Required methods:
 * getMeters()
 * getMeter()
@@ -31,6 +32,7 @@
 * Time limit
 * Time remaining
 * Hours of operation
+
 #### Required Methods:
 * isAvailable() *this is the same as isExpired()*
 * timeRemaining()
@@ -43,5 +45,6 @@
 #### Parallel with Meter
 #### Required attributes:
 * Hours of operation
+
 ####Required Methods:
 * isAvailable()
