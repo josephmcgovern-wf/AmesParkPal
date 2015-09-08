@@ -15,6 +15,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class ParkFileGenerator {
@@ -24,24 +27,32 @@ public class ParkFileGenerator {
 	 * 
 	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		
 		int exit = 0;
-		File lotFile = new File("AmesParking.txt");
+		PrintWriter output;
+		try{
+			output = new PrintWriter(new BufferedWriter(new FileWriter("AmesParking.txt", true)));
+		}catch(FileNotFoundException e){
+			File outFile = new File("AmesParking.txt");
+			output = new PrintWriter(outFile);
+		}
+		
 		Scanner input = new Scanner(System.in);
-		PrintWriter output = new PrintWriter(lotFile);
+		String lot = "";
 		
 		while(exit == 0){
 			
-			System.out.println("Add Lot(0) or Exit(1)");
-			int cont = input.nextInt(); 
+			System.out.println("Add Lot(0) or Undo Lot(1) or Exit(2)");
+			int cont = input.nextInt();
+			output = new PrintWriter(new BufferedWriter(new FileWriter("AmesParking.txt", true)));
 			
 			if(cont == 0){
 				System.out.println("Name of Lot: ");
-				String lot = "Lot Name: " + input.next();
+				lot = "Lot Name: " + input.next();
 				
 				while(true){
-					String tempLot = lot;
+					String undo = lot;
 					
 					System.out.println("Enter Lower Bound: ");
 					int low = input.nextInt();
@@ -55,24 +66,20 @@ public class ParkFileGenerator {
 					lot = addSpaces(low, high, type, lot);
 					
 					System.out.println("Preview Lot\n" + lot + 
-							"\nAdd More Spaces(0) or Undo(1) or Print Lot(2)");
+							"\nAdd More Spaces(0) or Undo Last Entry(1) or Print Lot(2)");
 					int end = input.nextInt();
 					
 					if(end == 1){
-						lot = tempLot;	
+						lot = undo;	
 					}else if(end == 2){
 						output.print(lot + System.getProperty("line.separator")); 
+						output.close();
 						break;
 					}
 				}
-					
 			}
-			else if(cont == 1){
-				exit = 1;
-			}
+			input.close();
 		}
-		input.close();
-		output.close();
 	}
 	
 	/**
