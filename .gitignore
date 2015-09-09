@@ -1,4 +1,4 @@
 /bin/
 .DS_Store
 .classpath
-org.eclipse.jdt.core.prefs
+\.settings\
